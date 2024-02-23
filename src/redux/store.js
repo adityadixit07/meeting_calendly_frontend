@@ -15,6 +15,6 @@ const store = configureStore({
   },
 });
 
-export const url="http://localhost:9889/api"
+export const url="http://localhost:9898/api"
 // export const url="/api"
 export default store

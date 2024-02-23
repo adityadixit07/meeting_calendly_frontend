@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
-import { clearError, createClient } from '../redux/adminSlice';
-import { useNavigate } from 'react-router-dom'
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { clearError, createClient } from "../redux/adminSlice";
+import { useNavigate } from "react-router-dom";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { toast } from "react-toastify";
 const ClientRegistrationForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { loading, error, message } = useSelector((state) => state.admin)
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const { loading, error, message } = useSelector((state) => state.admin);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
-    customerName: '',
-    companyName: '',
-    email: '',
-    password: '',
+    customerName: "",
+    companyName: "",
+    email: "",
+    password: "",
   });
 
   const handleChange = (e) => {
@@ -25,34 +25,51 @@ const ClientRegistrationForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.customerName || !formData.companyName || !formData.email || !formData.password) return
-    await dispatch(createClient({ name: formData.customerName, company: formData.companyName, email: formData.email, password: formData.password }))
+    if (
+      !formData.customerName ||
+      !formData.companyName ||
+      !formData.email ||
+      !formData.password
+    )
+      return;
+    await dispatch(
+      createClient({
+        name: formData.customerName,
+        company: formData.companyName,
+        email: formData.email,
+        password: formData.password,
+      })
+    );
     setFormData({
-      customerName: '',
-      companyName: '',
-      email: '',
-      password: '',
+      customerName: "",
+      companyName: "",
+      email: "",
+      password: "",
     });
-    navigate("/admin/clients")
+    navigate("/admin/clients");
   };
-
 
   useEffect(() => {
     if (error) {
-      toast.error(error)
-      dispatch(clearError())
+      toast.error(error);
+      dispatch(clearError());
     }
-  }, [error, dispatch])
+  }, [error, dispatch]);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
   return (
     <div className="flex items-center justify-center min-h-[80vh]">
-      <div className='bg-white p-8 rounded shadow-md md:w-[35%]'>
-        <h1 className="text-2xl font-bold mb-4 text-center">Client Registration</h1>
+      <div className="bg-white p-8 rounded shadow-md md:w-[35%]">
+        <h1 className="text-2xl font-bold mb-4 text-center">
+          Client Registration
+        </h1>
         <form onSubmit={handleSubmit} className="max-w-sm mx-auto ">
           <div className="mb-4">
-            <label htmlFor="customerName" className="block text-gray-700 font-bold mb-2">
+            <label
+              htmlFor="customerName"
+              className="block text-gray-700 font-bold mb-2"
+            >
               Customer Name
             </label>
             <input
@@ -66,7 +83,10 @@ const ClientRegistrationForm = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="companyName" className="block text-gray-700 font-bold mb-2">
+            <label
+              htmlFor="companyName"
+              className="block text-gray-700 font-bold mb-2"
+            >
               Company Name
             </label>
             <input
@@ -80,7 +100,10 @@ const ClientRegistrationForm = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
+            <label
+              htmlFor="email"
+              className="block text-gray-700 font-bold mb-2"
+            >
               Email
             </label>
             <input
@@ -94,12 +117,15 @@ const ClientRegistrationForm = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="password" className="block text-gray-700 font-bold mb-2">
+            <label
+              htmlFor="password"
+              className="block text-gray-700 font-bold mb-2"
+            >
               Password
             </label>
             <div className="relative">
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
                 value={formData.password}
@@ -125,11 +151,12 @@ const ClientRegistrationForm = () => {
             {loading ? (
               <div className="rounded-full mx-auto  h-[20px] w-[20px] border-2 border-white border-t-gray-200 animate-spin"></div>
             ) : (
-              'Register'
+              "Register"
             )}
           </button>
         </form>
-      </div></div>
+      </div>
+    </div>
   );
 };
 
